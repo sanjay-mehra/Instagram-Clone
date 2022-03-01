@@ -30,6 +30,7 @@ a{
 .gallery{
   display: flex;
   flex-wrap: wrap;
+  float: left;
   justify-content: space-around;
 }
 

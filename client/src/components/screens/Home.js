@@ -135,10 +135,13 @@ const Home  = ()=>{
        <div className="home">
            {
                data.map(item=>{
+                   console.log(item.likes);
                    return(
                        <div className="card home-card" key={item._id}>
-                            <h5 style={{padding:"5px"}}><Link to={item.postedBy._id !== state._id?"/profile/"+item.postedBy._id :"/profile"  }>
-                            <img src={item.postedBy.pic} style={{width:"32px" ,height:"32px",borderRadius:"16px",float:'left'}}></img>
+                            <h5 style={{padding:"5px"}}>
+                            <Link to={item.postedBy._id !== state._id?"/profile/"+item.postedBy._id :"/profile"  }>
+                            <img src={item.postedBy.pic}
+                              style={{width:"32px" ,height:"32px",borderRadius:"16px",float:'left'}}></img>
                             {item.postedBy.name}</Link> {item.postedBy._id == state._id 
                             && <i className="material-icons" style={{
                                 float:"right"
@@ -148,7 +151,14 @@ const Home  = ()=>{
 
                             }</h5>
                             <div className="card-image">
-                                <img src={item.photo}/>
+                                <img src={item.photo} style = {{maxHeight:"360px"}}
+                                onDoubleClick = {
+                                item.likes.includes(state._id)
+                                ? 
+                                ()=>unlikePost(item._id)
+                                : 
+                                ()=>likePost(item._id)
+                            }/>
                             </div>
                             <div className="card-content">
                             <i className="material-icons" style={{color:"red"}}>favorite</i>
@@ -167,7 +177,7 @@ const Home  = ()=>{
                            
                                 <h6>{item.likes.length} likes</h6>
                                 <h6 onClick={()=>{ return }}>{item.title}</h6>
-                                {/*<p>{item.body}</p>*/}
+                                {/* <p>{item.body}</p> */}
                                 {
                                     item.comments.map(record=>{
                                         return(
